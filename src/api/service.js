@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 export function serviceList(data) {
   return request({
-    url: '/vue-element-admin/user/login',
-    method: 'post',
+    url: '/v2/test/gz',
+    method: 'get',
     data
   })
 }
