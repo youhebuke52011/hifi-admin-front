@@ -17,6 +17,10 @@
             <el-form-item label="歌手图片" class="is-required">
               <el-input v-model="form.singer_img" placeholder="最多255字符，必填" />
             </el-form-item>
+            <el-form-item>
+              <el-button type="primary" :disabled="submitButDisabled" @click="handleSubmit">提交</el-button>
+              <el-button @click="handleCancel">取消</el-button>
+            </el-form-item>
           </el-form>
         </div>
       </el-card>
@@ -40,15 +44,15 @@ export default {
     }
   },
   created() {
-    const id = this.$route.params && this.$route.params.id
-    if (id > 0) {
+    const singer_id = this.$route.params && this.$route.params.singer_id
+    if (singer_id > 0) {
       this.isEdit = true
-      this.fetchData(id)
+      this.fetchData(singer_id)
     }
   },
   methods: {
-    fetchData(id) {
-      const query = { 'id': id }
+    fetchData(singer_id) {
+      const query = { 'singer_id': singer_id }
       serviceDetail(query).then(response => {
         this.form.singer_id = response.data.info.singer_id
         this.form.singer_name = response.data.info.singer_name
@@ -78,6 +82,7 @@ export default {
       } else {
         serviceAddHttp(query).then(response => {
           this.submitButDisabled = false
+          console.log(this.submitButDisabled)
           this.$notify({
             title: 'Success',
             message: '添加成功',
@@ -86,8 +91,13 @@ export default {
           })
         }).catch(() => {
           this.submitButDisabled = false
+          console.log(this.submitButDisabled)
         })
       }
+      this.$router.go(-1)
+    },
+    handleCancel() {
+      this.$router.go(-1)
     }
   }
 }

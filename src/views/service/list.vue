@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.info" placeholder="服务名称/服务描述" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.singer_id" placeholder="歌手id" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         Search
       </el-button>
@@ -77,7 +77,7 @@ export default {
       listQuery: {
         page: 1,
         page_size: 20,
-        info: ''
+        singer_id: 0
       },
       temp: {
         singer_id: undefined
@@ -97,7 +97,7 @@ export default {
       })
     },
     handleFilter() {
-      this.listQuery.page_no = 1
+      this.listQuery.page = 1
       this.getList()
     },
     handleDelete(row, index) {
@@ -107,7 +107,7 @@ export default {
         type: 'warning'
       }).then(() => {
         const deleteQuery = {
-          'id': row.singer_id
+          'singer_id': row.singer_id
         }
         serviceDelete(deleteQuery).then(response => {
           this.$notify({

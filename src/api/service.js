@@ -10,7 +10,7 @@ export function serviceList(data) {
 
 export function serviceDelete(token) {
   return request({
-    url: '/vue-element-admin/user/info',
+    url: '/v2/singer/delete',
     method: 'get',
     params: { token }
   })
